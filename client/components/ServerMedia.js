@@ -1,20 +1,45 @@
 import React from 'react';
 import { CardMedia, CardTitle } from 'material-ui/Card';
+import PeopleIcon from 'material-ui/svg-icons/social/people';
 
 const overlayContentStyle = {
   background: 'rgba(0, 0, 0, 0.75)',
 };
 
+const peopleIconStyle = {
+  verticalAlign: 'sub',
+  marginRight: 5,
+};
+
+const ServerOverlay = ({ media, users }) => (
+  <CardTitle
+    title={media.title}
+    subtitle={media.artist}
+  >
+    <div className="population">
+      <PeopleIcon style={peopleIconStyle} />
+      {users}
+    </div>
+
+    <style jsx>{`
+      .population {
+        position: absolute;
+        bottom: 0;
+        right: 8px;
+        padding: 16px;
+        font-size: 24px;
+        color: white;
+        opacity: 0.85;
+      }
+    `}</style>
+  </CardTitle>
+);
+
 const CurrentMedia = ({
   media,
 }) => (media ? (
   <CardMedia
-    overlay={(
-      <CardTitle
-        title={media.title}
-        subtitle={media.artist}
-      />
-    )}
+    overlay={<ServerOverlay media={media} users={10} />}
     overlayContentStyle={overlayContentStyle}
   >
     <div
